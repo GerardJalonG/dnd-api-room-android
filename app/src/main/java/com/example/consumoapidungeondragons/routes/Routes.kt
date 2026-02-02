@@ -1,8 +1,9 @@
 package com.example.consumoapidungeondragons.nav
 
 sealed class Routes(val route: String) {
-    object ListView : Routes("ListView")
-    object DetailsView : Routes("DetailsScreen/{monsterId}") {
-        fun createRoute(monsterIndex: String) = "DetailsScreen/$monsterIndex"
+    object ListView : Routes("list")
+    object KilledView : Routes("killed")
+    object Details : Routes("details/{monsterId}") {
+        fun createRoute(monsterId: String) = "details/$monsterId"
     }
 }

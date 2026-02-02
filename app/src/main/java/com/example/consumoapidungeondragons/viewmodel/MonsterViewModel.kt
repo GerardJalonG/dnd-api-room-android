@@ -32,6 +32,17 @@ class MonstersViewModel : ViewModel() {
     private val _isKilled = MutableLiveData(false)
     val isKilled: LiveData<Boolean> = _isKilled
 
+    private val _searchedText = MutableLiveData("")
+    val searchedText: LiveData<String> = _searchedText
+
+    fun onSearchTextChange(text: String) {
+        _searchedText.value = text
+    }
+
+    fun clearSearch() {
+        _searchedText.value = ""
+    }
+
     fun getMonsters() {
         if (_monsters.value?.isNotEmpty() == true) {
             _loading.value = false

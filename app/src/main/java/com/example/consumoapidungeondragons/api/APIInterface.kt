@@ -15,7 +15,7 @@ interface APIInterface {
     @GET("api/monsters/{index}")
     suspend fun getMonsterDetails(@Path("index") index: String): Response<MonsterDetails>
     companion object {
-        const val BASE_URL = "https://www.dnd5eapi.co"
+        const val BASE_URL = "https://www.dnd5eapi.co/"
         fun create(): APIInterface {
             val client = OkHttpClient.Builder().build()
             val retrofit = Retrofit.Builder()
