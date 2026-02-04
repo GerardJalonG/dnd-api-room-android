@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.consumoapidungeondragons.api.Repository
 import com.example.consumoapidungeondragons.db.DBRepository
-import com.example.consumoapidungeondragons.db.MonsterDatabase
 import com.example.consumoapidungeondragons.model.details.MonsterDetails
 import com.example.consumoapidungeondragons.model.listas.MonstersResult
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +18,8 @@ class MonstersViewModel : ViewModel() {
 
     private val _loading = MutableLiveData(true)
     val loading: LiveData<Boolean> = _loading
+
+    private var allMonsters: List<MonstersResult> = emptyList()
 
     private val _monsters = MutableLiveData<List<MonstersResult>>(emptyList())
     val monsters: LiveData<List<MonstersResult>> = _monsters
@@ -37,14 +38,20 @@ class MonstersViewModel : ViewModel() {
 
     fun onSearchTextChange(text: String) {
         _searchedText.value = text
+        if (text.isNotBlank()) {
+            _monsters.value = allMonsters.filter { it.name.contains(text, ignoreCase = true) }
+        } else {
+            _monsters.value = allMonsters
+        }
     }
 
     fun clearSearch() {
         _searchedText.value = ""
+        _monsters.value = allMonsters
     }
 
     fun getMonsters() {
-        if (_monsters.value?.isNotEmpty() == true) {
+        if (allMonsters.isNotEmpty()) {
             _loading.value = false
             return
         }
@@ -52,7 +59,9 @@ class MonstersViewModel : ViewModel() {
             val response = repository.getAllMonsters()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _monsters.value = response.body()?.results ?: emptyList()
+                    val monstersList = response.body()?.results ?: emptyList()
+                    allMonsters = monstersList
+                    _monsters.value = monstersList
                     _loading.value = false
                 } else {
                     Log.e("API Error", response.message())

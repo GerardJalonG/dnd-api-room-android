@@ -5,4 +5,5 @@ sealed class Routes(val route: String) {
     object DetailsView : Routes("DetailsScreen/{monsterId}") {
         fun createRoute(monsterIndex: String) = "DetailsScreen/$monsterIndex"
     }
+    object KilledMonstersView : Routes("KilledMonstersView")
 }

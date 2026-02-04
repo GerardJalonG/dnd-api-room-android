@@ -1,5 +1,6 @@
 package com.example.consumoapidungeondragons.view
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -7,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.consumoapidungeondragons.Routes
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(
@@ -15,9 +17,8 @@ fun AppNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
         modifier = modifier
     ) {
         composable(Routes.ListView.route) {
-            ListView(modifier = modifier, navController = navController)
+            ListView(navController = navController)
         }
-
         composable(Routes.DetailsView.route) { backStackEntry ->
             val monsterIndex = backStackEntry.arguments?.getString("monsterId")
 
@@ -26,6 +27,9 @@ fun AppNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
             } else {
                 navController.navigateUp()
             }
+        }
+        composable(Routes.KilledMonstersView.route) {
+            KilledMonstersView(navController = navController)
         }
     }
 }

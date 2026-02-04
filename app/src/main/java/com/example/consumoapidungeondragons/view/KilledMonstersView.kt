@@ -19,7 +19,7 @@ import com.example.consumoapidungeondragons.viewmodel.MonstersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListView(
+fun KilledMonstersView(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
@@ -27,21 +27,21 @@ fun ListView(
     val monsters = viewModel.monsters.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
-        viewModel.getMonsters()
+        viewModel.getKilledMonsters()
     }
 
     Scaffold(
         bottomBar = { BottomNav(navController = navController) }
     ) { innerPadding ->
-        MonsterSearchBar(viewModel = viewModel, modifier = modifier.padding(innerPadding)) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                items(monsters.value) { monster ->
-                    CharacterItem(monster = monster, navController = navController)
-                }
+        LazyColumn(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            items(monsters.value) { monster ->
+                CharacterItem(monster = monster, navController = navController)
             }
         }
     }

@@ -3,7 +3,7 @@ package com.example.consumoapidungeondragons.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.consumoapidungeondragons.nav.BottomNavigationScreens
+import com.example.consumoapidungeondragons.routes.BottomNavigationScreens
 
 class ScaffoldViewModel : ViewModel() {
 
