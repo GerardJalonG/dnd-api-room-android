@@ -3,7 +3,6 @@ package com.example.consumoapidungeondragons.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,18 +30,20 @@ fun ListView(
     }
 
     Scaffold(
-        bottomBar = { BottomNav(navController = navController) }
-    ) { innerPadding ->
-        MonsterSearchBar(viewModel = viewModel, modifier = modifier.padding(innerPadding)) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                items(monsters.value) { monster ->
-                    CharacterItem(monster = monster, navController = navController)
+        topBar = {
+            MonsterSearchBar(viewModel = viewModel) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(start = 16.dp, top = 18.dp, end = 16.dp)
+                ) {
+                    items(monsters.value) { monster ->
+                        CharacterItem(monster = monster, navController = navController)
+                    }
                 }
             }
-        }
+        },
+        bottomBar = { BottomNav(navController = navController) }
+    ) {
     }
 }

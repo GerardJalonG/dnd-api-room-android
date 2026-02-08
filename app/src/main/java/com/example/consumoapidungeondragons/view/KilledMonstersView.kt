@@ -31,18 +31,20 @@ fun KilledMonstersView(
     }
 
     Scaffold(
-        bottomBar = { BottomNav(navController = navController) }
-    ) { innerPadding ->
-        MonsterSearchBar(viewModel = viewModel, modifier = modifier.padding(innerPadding)) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                items(monsters.value) { monster ->
-                    CharacterItem(monster = monster, navController = navController)
+        topBar = {
+            MonsterSearchBar(viewModel = viewModel) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(start = 16.dp, top = 18.dp, end = 16.dp)
+                ) {
+                    items(monsters.value) { monster ->
+                        CharacterItem(monster = monster, navController = navController)
+                    }
                 }
             }
-        }
+        },
+        bottomBar = { BottomNav(navController = navController) }
+    ) {
     }
 }

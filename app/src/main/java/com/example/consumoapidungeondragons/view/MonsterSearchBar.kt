@@ -51,7 +51,7 @@ fun MonsterSearchBar(
             placeholder = { Text("Busca tu monstruo de DND...") },
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
             // No pongo recomendaciones ya que la lista se modifica sola
         }
