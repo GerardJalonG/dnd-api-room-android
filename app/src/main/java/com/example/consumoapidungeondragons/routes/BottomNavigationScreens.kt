@@ -1,7 +1,7 @@
 package com.example.consumoapidungeondragons.routes
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.consumoapidungeondragons.Routes
@@ -11,6 +11,7 @@ sealed class BottomNavigationScreens(
     val icon: ImageVector,
     val label: String
 ) {
-    object Monsters : BottomNavigationScreens(Routes.ListView.route, Icons.Filled.List, "Monsters")
+    object Monsters : BottomNavigationScreens(Routes.ListView.route,
+        Icons.AutoMirrored.Filled.List, "Monsters")
     object Hunted : BottomNavigationScreens(Routes.KilledMonstersView.route, Icons.Filled.Star, "Hunted")
 }

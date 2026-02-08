@@ -1,11 +1,9 @@
 package com.example.consumoapidungeondragons.view
 
-import android.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -14,15 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
-import com.example.consumoapidungeondragons.api.APIInterface
+import com.example.consumoapidungeondragons.R
 import com.example.consumoapidungeondragons.viewmodel.MonstersViewModel
 
 
@@ -63,7 +61,7 @@ fun DetailsView(monsterIndex: String, navController: NavController, modifier: Mo
 
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
-                val imageUrl = "${APIInterface.BASE_URL}${details.image}"
+                val imageUrl = "https://www.dnd5eapi.co/api/images/monsters/${details.index}.png"
                 GlideImage(
                     model = imageUrl,
                     contentDescription = "Character Image",
@@ -123,14 +121,19 @@ fun DetailsView(monsterIndex: String, navController: NavController, modifier: Mo
                         }
                     }
                 ) {
-                    Icon(
-                        imageVector = if (isKilled == true)
-                            Icons.Filled.Delete
-                        else
-                            Icons.Outlined.Delete,
-                        contentDescription = null,
-                        tint = if (isKilled == true) Color.Red else Color.Gray
-                    )
+                    if (isKilled == true) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.skull),
+                            contentDescription = null,
+                            tint = Color.Red
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.skull),
+                            contentDescription = null,
+                            tint = Color.Gray
+                        )
+                    }
                 }
             }
         }
