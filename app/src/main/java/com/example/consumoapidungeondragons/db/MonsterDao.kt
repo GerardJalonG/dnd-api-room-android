@@ -11,6 +11,9 @@ interface MonsterDao {
     @Query("SELECT * FROM monsters")
     suspend fun getAllMonsters(): List<MonstersResult>
 
+    @Query("SELECT * FROM monsters WHERE isKilled = 1")
+    suspend fun getKilledMonsters(): List<MonstersResult>
+
     @Query("SELECT * FROM monsters WHERE `index` = :index")
     suspend fun getMonster(index: String): MonstersResult?
 
@@ -19,10 +22,4 @@ interface MonsterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(monster: MonstersResult)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun killMonster(monster: MonstersResult)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun freeMonster(monster: MonstersResult)
 }

@@ -24,7 +24,7 @@ fun KilledMonstersView(
     navController: NavController
 ) {
     val viewModel: MonstersViewModel = viewModel()
-    val monsters = viewModel.monsters.observeAsState(emptyList())
+    val monsters = viewModel.killedMonsters.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
         viewModel.getKilledMonsters()
@@ -33,15 +33,15 @@ fun KilledMonstersView(
     Scaffold(
         bottomBar = { BottomNav(navController = navController) }
     ) { innerPadding ->
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            items(monsters.value) { monster ->
-                CharacterItem(monster = monster, navController = navController)
+        MonsterSearchBar(viewModel = viewModel, modifier = modifier.padding(innerPadding)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                items(monsters.value) { monster ->
+                    CharacterItem(monster = monster, navController = navController)
+                }
             }
         }
     }

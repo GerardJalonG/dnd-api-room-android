@@ -20,9 +20,13 @@ class MonstersViewModel : ViewModel() {
     val loading: LiveData<Boolean> = _loading
 
     private var allMonsters: List<MonstersResult> = emptyList()
+    private var allKilledMonsters: List<MonstersResult> = emptyList()
 
     private val _monsters = MutableLiveData<List<MonstersResult>>(emptyList())
     val monsters: LiveData<List<MonstersResult>> = _monsters
+
+    private val _killedMonsters = MutableLiveData<List<MonstersResult>>(emptyList())
+    val killedMonsters: LiveData<List<MonstersResult>> = _killedMonsters
 
     private val _monsterDetails = MutableLiveData<MonsterDetails?>()
     val monsterDetails: LiveData<MonsterDetails?> = _monsterDetails
@@ -40,14 +44,17 @@ class MonstersViewModel : ViewModel() {
         _searchedText.value = text
         if (text.isNotBlank()) {
             _monsters.value = allMonsters.filter { it.name.contains(text, ignoreCase = true) }
+            _killedMonsters.value = allKilledMonsters.filter { it.name.contains(text, ignoreCase = true) }
         } else {
             _monsters.value = allMonsters
+            _killedMonsters.value = allKilledMonsters
         }
     }
 
     fun clearSearch() {
         _searchedText.value = ""
         _monsters.value = allMonsters
+        _killedMonsters.value = allKilledMonsters
     }
 
     fun getMonsters() {
@@ -89,9 +96,10 @@ class MonstersViewModel : ViewModel() {
     }
     fun getKilledMonsters() {
         CoroutineScope(Dispatchers.IO).launch {
-            val monsters = DBRepository.getAllMonsters()
+            val monsters = DBRepository.getKilledMonsters()
             withContext(Dispatchers.Main) {
-                _monsters.value = monsters as List<MonstersResult>?
+                allKilledMonsters = monsters
+                _killedMonsters.value = monsters
             }
         }
     }
