@@ -1,6 +1,11 @@
-# Projecte Coet de la Nasa Gerard Jalón Dean Martin
-## Descripció
-Projecte realitzat amb *lazy columns* trucant a una api mitjançant Retrofit i tenir dades guardades en una base de dades local per *Room*.
+# DnD Android App with Room and API
+## Description
+
+Android application developed in Kotlin that integrates a DnD API using Retrofit and implements local data persistence with Room.
+
+The app follows an offline-first approach, allowing users to fetch, browse, and store data efficiently. It uses modern Android components such as LazyColumn for dynamic UI rendering and provides a smooth experience when working with both remote and local data sources.
+
+This project demonstrates key Android development concepts, including API integration, local database management, and scalable UI architecture.
 
 ### Pantalla principal amb la lazy column i un *monster detail* d'exemple.
 <img width="376" height="838" alt="image" src="https://github.com/user-attachments/assets/5f9797c8-dd18-45b7-9d60-090c8ea4456b" />
