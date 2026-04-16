@@ -1,4 +1,4 @@
-# DnD Android App with Room and API
+# DnD Android App with Room and Retrofit
 ## Description
 
 Android application developed in Kotlin that integrates a DnD API using Retrofit and implements local data persistence with Room.
